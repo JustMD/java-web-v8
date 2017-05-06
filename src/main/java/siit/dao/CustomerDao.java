@@ -9,4 +9,6 @@ public interface CustomerDao {
 	void updateCustomer(int id, String newName);
 	List<Customer> getAllCustomers();
 	void addOrder(int idCust, int idOrder);
+	void removeOrder(int idOrder);
+	boolean verifyOrder(int idOrder);
 }

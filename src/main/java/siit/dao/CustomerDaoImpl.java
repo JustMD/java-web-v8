@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import siit.model.Customer;
 import siit.model.Order;
+import siit.model.Product;
 
 @Repository
 public class CustomerDaoImpl implements CustomerDao {
@@ -70,10 +71,29 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 	};
 
+	private static final RowMapper<Product> PRODUCT_MAPPER = new RowMapper<Product>() {
+
+		@Override
+		public Product mapRow(ResultSet rs, int i) throws SQLException {
+			Product product = new Product();
+			product.setId(rs.getInt("id"));
+			return null;
+		}
+	};
+
 	@Override
 	public void addOrder(int idCust, int idOrder) {
 		db.update("INSERT INTO ORDERS(ID, ID_CUST) VALUES (?,?)", idOrder, idCust);
-		
 	}
 
+	@Override
+	public void removeOrder(int idOrder){
+		db.update("DELETE FROM orders o where o.id = ?", Integer.class, idOrder);
+	}
+
+	@Override
+	public boolean verifyOrder(int idOrder) {
+		int order = db.queryForObject("SELECT COUNT(*) FROM orders o where o.id = ?", Integer.class, idOrder);
+		return order > 0;
+	}
 }

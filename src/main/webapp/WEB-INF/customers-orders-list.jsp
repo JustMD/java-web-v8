@@ -10,7 +10,7 @@
 	<div class="container">
 		<h2>Orders for ${customer.name}&nbsp;&nbsp; 
 			<a href="<c:url value="/customers/${customer.id}/order/add"/> " class="btn btn-info">Add New Order</a>
-			<a href="<c:url value="/customers/list"/>" class="btn btn-info">Back to Customers List</a></h2>
+			<a href="<c:url value="/customers/"/>" class="btn btn-info">Back to Customers List</a></h2>
 		<table class="table table-striped">
 			<tr>
 				<th>Number</th>
@@ -21,7 +21,7 @@
 				<tr>
 					<td>Order id: <c:out value="${order.id}" /></td>
 					<td>Order value: <c:out value="100 Euro" /></td>
-					<td><a href="<c:url value="/customers/${customer.id}/order/${order.id}/delete"/> " class="btn btn-info">View Products</a>
+					<td><a href="<c:url value="/customers/${customer.id}/order/${order.id}/products"/> " class="btn btn-info">View Products</a>
 					<a href="<c:url value="/customers/${customer.id}/order/${order.id}/delete"/> " class="btn btn-info">Delete</a></td>
 				</tr>
 			</c:forEach>

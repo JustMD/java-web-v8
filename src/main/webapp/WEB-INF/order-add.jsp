@@ -18,9 +18,9 @@
 				</div>
 			</div>
 			
-			<div>Error: ${error}</div>
+
 			<c:if test="${not empty error}">
-				<div>Error: ${error}</div>
+				<div class="alert alert-danger">Error: ${error}</div>
 			</c:if>
 			
 			<div class="form-group">

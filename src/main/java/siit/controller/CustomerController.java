@@ -61,9 +61,24 @@ public class CustomerController {
 	
 
 	@RequestMapping(path = "/{customerId}/order/add", method = RequestMethod.POST)
-	public String addOrder(@PathVariable("customerId") int customerId, 
+	public ModelAndView addOrder(@PathVariable("customerId") int customerId,
 			@RequestParam Integer idOrder){
-		customerDao.addOrder(customerId, idOrder);
-		return "redirect:/customers/" +customerId+ "/orders/list";
+		if( customerDao.verifyOrder(idOrder)) {
+			ModelAndView mav = new ModelAndView("order-add");
+			mav.addObject("error", "ID already exists, try another");
+			return mav;
+		} else {
+			customerDao.addOrder(customerId, idOrder);
+		}
+
+		return new ModelAndView("redirect:/customers/" + customerId + "/orders/list");
 	}
+
+	@RequestMapping(path = "/{customerId}/order/delete", method = RequestMethod.DELETE)
+	public ModelAndView removeOrder(@PathVariable("customerId") int customerId,
+									@RequestParam Integer orderId) {
+        customerDao.removeOrder(orderId);
+        return new ModelAndView("redirect:/customers/" + customerId + "/orders/list");
+	}
+
 }
