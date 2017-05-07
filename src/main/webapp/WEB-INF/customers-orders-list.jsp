@@ -11,7 +11,7 @@
 		<h2>Orders for ${customer.name}&nbsp;&nbsp; 
 			<a href="<c:url value="/customers/${customer.id}/order/add"/> " class="btn btn-info">Add New Order</a>
 			<a href="<c:url value="/customers/"/>" class="btn btn-info">Back to Customers List</a></h2>
-		<table class="table table-striped">
+		<table class="table table-striped table-hover">
 			<tr>
 				<th>Number</th>
 				<th>Value</th>

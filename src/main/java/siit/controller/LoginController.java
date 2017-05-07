@@ -34,5 +34,11 @@ public class LoginController {
 			return mav;
 		}
 	}
+
+	@RequestMapping(path = "/logout", method=RequestMethod.GET)
+	public ModelAndView doLogout(HttpSession session) {
+		session.invalidate();
+		return new ModelAndView("redirect:/login");
+	}
 	
 }

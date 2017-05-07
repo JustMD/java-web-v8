@@ -88,7 +88,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public void removeOrder(int idOrder){
-		db.update("DELETE FROM orders o where o.id = ?", Integer.class, idOrder);
+		db.update("DELETE FROM orders WHERE id = ?", idOrder);
 	}
 
 	@Override

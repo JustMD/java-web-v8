@@ -74,11 +74,11 @@ public class CustomerController {
 		return new ModelAndView("redirect:/customers/" + customerId + "/orders/list");
 	}
 
-	@RequestMapping(path = "/{customerId}/order/delete", method = RequestMethod.DELETE)
-	public ModelAndView removeOrder(@PathVariable("customerId") int customerId,
-									@RequestParam Integer orderId) {
+	@RequestMapping("/{customerId}/order/{orderId}/delete")
+	public String removeOrder(@PathVariable("customerId") int customerId,
+							  @PathVariable("orderId") int orderId) {
         customerDao.removeOrder(orderId);
-        return new ModelAndView("redirect:/customers/" + customerId + "/orders/list");
+        return "redirect:/customers/" + customerId + "/orders/list";
 	}
 
 }
