@@ -25,6 +25,39 @@ public class CustomerDaoImpl implements CustomerDao {
 		db = new JdbcTemplate(dataSource);
 	}
 
+
+	private static final RowMapper<Customer> CUSTOMER_MAPPER = new RowMapper<Customer>() {
+
+		@Override
+		public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Customer customer = new Customer();
+			customer.setId(rs.getInt("id"));
+			customer.setName(rs.getString("name"));
+			customer.setPhone(rs.getString("phone"));
+			return customer;
+		}
+	};
+
+	private static final RowMapper<Order> ORDER_MAPPER = new RowMapper<Order>() {
+
+		@Override
+		public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Order order = new Order();
+			order.setId(rs.getInt("id"));
+			return order;
+		}
+	};
+
+	private static final RowMapper<Product> PRODUCT_MAPPER = new RowMapper<Product>() {
+
+		@Override
+		public Product mapRow(ResultSet rs, int i) throws SQLException {
+			Product product = new Product();
+			product.setId(rs.getInt("id"));
+			return product;
+		}
+	};
+
 	@Override
 	public Customer getCustomerById(int id) {
 		Customer customer =  db.queryForObject("SELECT * FROM CUSTOMERS WHERE ID=?",
@@ -48,38 +81,6 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<Customer> getAllCustomers() {
 		return db.query("SELECT * FROM CUSTOMERS", CUSTOMER_MAPPER);
 	}
-
-	private static final RowMapper<Customer> CUSTOMER_MAPPER = new RowMapper<Customer>() {
-
-		@Override
-		public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Customer customer = new Customer();
-			customer.setId(rs.getInt("id"));
-			customer.setName(rs.getString("name"));
-			customer.setPhone(rs.getString("phone"));
-			return customer;
-		}
-	};
-	
-	private static final RowMapper<Order> ORDER_MAPPER = new RowMapper<Order>() {
-
-		@Override
-		public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Order order = new Order();
-			order.setId(rs.getInt("id"));
-			return order;
-		}
-	};
-
-	private static final RowMapper<Product> PRODUCT_MAPPER = new RowMapper<Product>() {
-
-		@Override
-		public Product mapRow(ResultSet rs, int i) throws SQLException {
-			Product product = new Product();
-			product.setId(rs.getInt("id"));
-			return null;
-		}
-	};
 
 	@Override
 	public void addOrder(int idCust, int idOrder) {
